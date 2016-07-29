@@ -53,13 +53,34 @@ module ``about the stock example`` =
           "2012-03-02,32.31,32.44,32.00,32.08,47314200,32.08";
           "2012-03-01,31.93,32.39,31.85,32.29,77344100,32.29";
           "2012-02-29,31.89,32.00,31.61,31.74,59323600,31.74"; ]
-    
+
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+
+        let quoteToArray (data:string) =
+          data.Split [|','|]
+
+        let variance quote =
+          let quoteArray = quoteToArray quote
+          let getOpen (quote:string[]) =
+            System.Double.Parse quote.[1]
+
+          let getClose (quote:string[]) =
+            System.Double.Parse quote.[4]
+          
+          abs(getOpen quoteArray - getClose quoteArray)
+    
+        let getDate (quote:string) =
+          quoteToArray(quote).[0]
+        let result =
+          stockData
+          |> List.tail
+          |> List.maxBy variance
+          |> getDate
+
         
         AssertEquality "2012-03-13" result
