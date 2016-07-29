@@ -68,4 +68,5 @@ module ``about option types`` =
 
         //HINT: look at the return type of the decide on function
         AssertEquality (decideOn chronoTrigger) (Some "play it")
-        AssertEquality (decideOn halo) (None)
+        AssertEquality (decideOn halo) (None
+        )
